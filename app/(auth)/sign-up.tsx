@@ -1,4 +1,5 @@
 import { useAuth, useSignUp } from "@clerk/expo";
+import { Ionicons } from "@expo/vector-icons";
 import { Link, useRouter } from "expo-router";
 import React, { useState } from "react";
 import {
@@ -212,17 +213,23 @@ export default function SignUp() {
           </Text>
         )}
 
-        <View className="flex-row gap-3 bg-gray-50 border border-gray-300 rounded-xl mb-4">
+        <View className="flex-row items-center w-full gap-3 bg-gray-50 border border-gray-300 rounded-xl mb-4">
           <TextInput
             placeholder="Password"
-            className="w-full placeholder:text-gray-500 placeholder:text-lg py-3 px-4 focus:outline-none"
+            placeholderTextColor="#6B7280"
+            className="flex-1 placeholder:text-gray-500 placeholder:text-lg py-3 px-4 focus:outline-none"
             value={password}
             onChangeText={setPassword}
-            // secureTextEntry={!showPassword}
+            secureTextEntry={!showPassword}
           />
-          <TouchableOpacity
-            onPress={() => setShowPassword(!showPassword)}
-          ></TouchableOpacity>
+          <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
+            <Ionicons
+              name={showPassword ? "eye" : "eye-off"}
+              size={20}
+              color="black"
+              className="pr-4"
+            />
+          </TouchableOpacity>
         </View>
         {errors.fields.password && (
           <Text className="text-red-500 mb-6">
