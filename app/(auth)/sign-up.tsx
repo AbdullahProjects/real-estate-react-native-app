@@ -216,7 +216,7 @@ export default function SignUp() {
         <View className="flex-row items-center w-full gap-3 bg-gray-50 border border-gray-300 rounded-xl mb-4">
           <TextInput
             placeholder="Password"
-            placeholderTextColor="#6B7280"
+            style={{ color: "black" }}
             className="flex-1 placeholder:text-gray-500 placeholder:text-lg py-3 px-4 focus:outline-none"
             value={password}
             onChangeText={setPassword}
