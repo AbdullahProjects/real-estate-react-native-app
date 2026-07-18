@@ -1,8 +1,8 @@
 import { useAuth } from "@clerk/expo";
-import { Redirect } from "expo-router";
+import { Redirect, Slot } from "expo-router";
 import { ActivityIndicator, StyleSheet, View } from "react-native";
 
-export default function Index() {
+export default function RootLayout() {
   const { isSignedIn, isLoaded } = useAuth();
 
   if (!isLoaded) {
@@ -13,11 +13,11 @@ export default function Index() {
     );
   }
 
-  if (isSignedIn) {
-    return <Redirect href="/(root)/(tabs)" />;
+  if (!isSignedIn) {
+    return <Redirect href="/sign-in" />;
   }
 
-  return <Redirect href="/sign-in" />;
+  return <Slot />;
 }
 
 const styles = StyleSheet.create({

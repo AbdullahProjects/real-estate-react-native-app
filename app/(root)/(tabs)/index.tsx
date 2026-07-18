@@ -6,7 +6,7 @@ export default function HomeScreen() {
   return (
     <SafeAreaView>
       <View>
-        <Text className="text-3xl font-bold text-orange-700 pt-20">HomeScreen</Text>
+        <Text className="text-3xl font-bold text-orange-700 pt-20">Home Screen</Text>
       </View>
     </SafeAreaView>
   );
