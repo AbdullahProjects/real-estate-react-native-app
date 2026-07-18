@@ -246,9 +246,9 @@ export default function SignUp() {
           <Text className="text-gray-500 text-md pr-1">
             Already have an account?{" "}
           </Text>
-          <Link href={"/sign-in"}>
+          <TouchableOpacity onPress={() => router.back()}>
             <Text className="text-blue-600 font-bold text-md">Sign In</Text>
-          </Link>
+          </TouchableOpacity>
         </View>
       </View>
     </ScrollView>
