@@ -30,15 +30,17 @@ export default function TabLayout() {
       />
 
       {/* 3. Admin: Create Tab */}
-      <Tabs.Screen
-        name="create"
-        options={{
-          title: "Create",
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="add-circle" color={color} size={size} />
-          ),
-        }}
-      />
+      {isAdmin && (
+        <Tabs.Screen
+          name="create"
+          options={{
+            title: "Create",
+            tabBarIcon: ({ color, size }) => (
+              <Ionicons name="add-circle" color={color} size={size} />
+            ),
+          }}
+        />
+      )}
 
       {/* 4. Saved Tab */}
       <Tabs.Screen
