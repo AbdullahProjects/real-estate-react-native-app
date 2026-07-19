@@ -1,31 +1,66 @@
-import { Icon, Label, NativeTabs } from "expo-router/unstable-native-tabs";
+import { useUserStore } from "@/store/userStore";
+import { Ionicons } from "@expo/vector-icons";
+import { Tabs } from "expo-router";
 
 export default function TabLayout() {
+  const isAdmin = useUserStore((state) => state.isAdmin);
+
   return (
-    <NativeTabs>
-      {/* 1 */}
-      <NativeTabs.Trigger name="index">
-        <Label>Home</Label>
-        <Icon sf="house.fill" />
-      </NativeTabs.Trigger>
+    <Tabs screenOptions={{ headerShown: false }}>
+      {/* 1. Home Tab */}
+      <Tabs.Screen
+        name="index"
+        options={{
+          title: "Home",
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="home" color={color} size={size} />
+          ),
+        }}
+      />
 
-      {/* 2 */}
-      <NativeTabs.Trigger name="search">
-        <Icon sf="magnifyingglass" />
-        <Label>Search</Label>
-      </NativeTabs.Trigger>
+      {/* 2. Search Tab */}
+      <Tabs.Screen
+        name="search"
+        options={{
+          title: "Search",
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="search" color={color} size={size} />
+          ),
+        }}
+      />
 
-      {/* 3 */}
-      <NativeTabs.Trigger name="saved">
-        <Icon sf="bookmark.fill" />
-        <Label>Saved</Label>
-      </NativeTabs.Trigger>
+      {/* 3. Admin: Create Tab */}
+      <Tabs.Screen
+        name="create"
+        options={{
+          title: "Create",
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="add-circle" color={color} size={size} />
+          ),
+        }}
+      />
 
-      {/* 4 */}
-      <NativeTabs.Trigger name="profile">
-        <Icon sf="person.circle" />
-        <Label>Profile</Label>
-      </NativeTabs.Trigger>
-    </NativeTabs>
+      {/* 4. Saved Tab */}
+      <Tabs.Screen
+        name="saved"
+        options={{
+          title: "Saved",
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="bookmark" color={color} size={size} />
+          ),
+        }}
+      />
+
+      {/* 5. Profile Tab */}
+      <Tabs.Screen
+        name="profile"
+        options={{
+          title: "Profile",
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="person" color={color} size={size} />
+          ),
+        }}
+      />
+    </Tabs>
   );
 }

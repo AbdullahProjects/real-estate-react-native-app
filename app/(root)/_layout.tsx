@@ -1,9 +1,13 @@
+import { useUserSync } from "@/hooks/useUserSync";
 import { useAuth } from "@clerk/expo";
 import { Redirect, Slot } from "expo-router";
 import { ActivityIndicator, StyleSheet, View } from "react-native";
 
 export default function RootLayout() {
   const { isSignedIn, isLoaded } = useAuth();
+
+  // Sync Clerk user -> Supabase
+  useUserSync();
 
   if (!isLoaded) {
     return (
