@@ -1,4 +1,5 @@
 import FeaturedCard from "@/components/FeaturedCart";
+import PropertyCard from "@/components/PropertyCard";
 import { supabase } from "@/lib/supabase";
 import { Property } from "@/types";
 import { useUser } from "@clerk/expo";
@@ -135,7 +136,7 @@ export default function HomeScreen() {
           }
           renderItem={({ item }) => (
             <View>
-              <Text>{item.title}</Text>
+              <PropertyCard property={item} />
             </View>
           )}
         />
