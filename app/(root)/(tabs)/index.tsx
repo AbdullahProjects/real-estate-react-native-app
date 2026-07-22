@@ -52,17 +52,17 @@ export default function HomeScreen() {
   );
 
   return (
-    <SafeAreaView className="flex-1 bg-gray-50">
+    <SafeAreaView edges={["top"]} className="flex-1 bg-gray-50">
       <View className="px-5">
         <FlatList
           data={recommended}
-          contentContainerStyle={{ paddingBottom: 10 }}
+          contentContainerStyle={{ paddingBottom: 20 }}
           showsVerticalScrollIndicator={false}
           keyExtractor={(item) => item.id}
           ListHeaderComponent={
             <View>
               {/* Header */}
-              <View className="flex-row items-center justify-between pt-6 pb-5">
+              <View className="flex-row items-center justify-between pt-6 pb-6">
                 <Image
                   source={require("../../../assets/images/app_logo.png")}
                   style={{ width: 90, height: 40 }}
@@ -70,7 +70,7 @@ export default function HomeScreen() {
                 />
 
                 <View className="text-gray-900 items-end">
-                  <Text className="text-lg mb-1">Good Morning 👋</Text>
+                  <Text className="text-lg mb-0.5">Good Morning 👋</Text>
                   <Text className="text-xl font-bold">
                     {" "}
                     {user?.firstName ?? "User"}
@@ -81,7 +81,7 @@ export default function HomeScreen() {
               {/* Search Bar */}
               <TouchableOpacity
                 onPress={() => router.push("/(root)/(tabs)/search")}
-                className="flex-row items-center gap-3 mb-6 bg-white rounded-full border border-gray-200 px-5 py-3"
+                className="flex-row items-center gap-3 mx-1 mb-6 bg-white rounded-full border border-gray-200 px-5 py-3"
                 style={{
                   shadowColor: "#000",
                   shadowOffset: { width: 0, height: 2 },
@@ -97,7 +97,7 @@ export default function HomeScreen() {
               </TouchableOpacity>
 
               {/* Featured Section */}
-              <View className="mb-6">
+              <View>
                 <Text className="text-gray-900 text-2xl font-bold mb-4">
                   Featured
                 </Text>
@@ -120,7 +120,7 @@ export default function HomeScreen() {
               </View>
 
               {/* Recommended Section */}
-              <Text className="text-gray-900 text-2xl font-bold mb-4">
+              <Text className="text-gray-900 text-2xl font-bold mt-3">
                 Recommended
               </Text>
             </View>

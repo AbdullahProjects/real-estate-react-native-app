@@ -20,7 +20,7 @@ export default function PropertyCard({
 
   return (
     <TouchableOpacity
-      className="flex-row rounded-3xl overflow-hidden bg-white mb-4 mx-1"
+      className="flex-row rounded-3xl overflow-hidden bg-white mt-4 mx-1"
       style={{
         shadowColor: "#000",
         shadowOffset: { width: 0, height: 2 },
