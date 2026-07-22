@@ -1,10 +1,19 @@
 import FilterModal from "@/components/FilterModal";
+import PropertyCard from "@/components/PropertyCard";
+import { supabase } from "@/lib/supabase";
 import { PropertyType, useFilterStore } from "@/store/filterStore";
 import { Property } from "@/types/index";
 import { Ionicons } from "@expo/vector-icons";
 import { useLocalSearchParams } from "expo-router";
 import React, { useEffect, useMemo, useState } from "react";
-import { Text, TextInput, TouchableOpacity, View } from "react-native";
+import {
+  ActivityIndicator,
+  FlatList,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function SearchScreen() {
@@ -41,6 +50,51 @@ export default function SearchScreen() {
     maxPrice !== null,
   ].filter(Boolean).length;
 
+  useEffect(() => {
+    fetchResultsFromSupabase();
+  }, [search, propertyType, bedrooms, minPrice, maxPrice]);
+
+  const fetchResultsFromSupabase = async () => {
+    try {
+      setLoading(true);
+
+      let query = supabase.from("properties").select("*");
+
+      // Apply search filter
+      if (search.trim()) {
+        query = query.ilike("title", `%${search.trim()}%`);
+      }
+
+      // Apply property type filter
+      if (propertyType) {
+        query = query.eq("type", propertyType);
+      }
+
+      // Apply bedrooms filter
+      if (bedrooms !== null) {
+        query = query.eq("bedrooms", bedrooms);
+      }
+
+      // Apply price range filter
+      if (minPrice !== null) {
+        query = query.gte("price", minPrice);
+      }
+      if (maxPrice !== null) {
+        query = query.lte("price", maxPrice);
+      }
+
+      const { data } = await query.order("create_at", { ascending: false });
+
+      console.log("Fetched results:", data);
+
+      setResults(data ?? []);
+    } catch (error) {
+      console.error("Error fetching results:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const activeChips = useMemo(() => {
     const chips: { key: string; label: string; onRemove: () => void }[] = [];
 
@@ -48,7 +102,8 @@ export default function SearchScreen() {
       const labels: Record<NonNullable<PropertyType>, string> = {
         apartment: "Apartment",
         house: "House",
-        land: "Land",
+        studio: "Studio",
+        villa: "Villa",
         commercial: "Commercial",
       };
       chips.push({
@@ -191,7 +246,32 @@ export default function SearchScreen() {
       </View>
 
       {/* Results (Body) -------------------------------------------------- */}
-      <View></View>
+      <FlatList
+        data={results}
+        keyExtractor={(item) => item.id}
+        contentContainerStyle={{ paddingBottom: 100 }}
+        showsVerticalScrollIndicator={true}
+        ListHeaderComponent={
+          <Text className="text-sm text-gray-500 mb-4 px-5">
+            {loading ? "Searching..." : `${results.length} results found`}
+          </Text>
+        }
+        ListEmptyComponent={
+          !loading ? (
+            <View className="py-20 items-center">
+              <Text className="text-gray-500 mb-1 text-lg font-bold">No Properties Found</Text>
+              <Text className="text-gray-400">Try adjusting your filters</Text>
+            </View>
+          ) : (
+            <ActivityIndicator size="large" color="#0000ff" className="py-10" />
+          )
+        }
+        renderItem={({ item }) => (
+          <View className="px-5">
+            <PropertyCard property={item} />
+          </View>
+        )}
+      />
 
       {/* Filter Modal (bottom sheet) */}
       <FilterModal

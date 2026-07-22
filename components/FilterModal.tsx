@@ -14,7 +14,8 @@ import { SafeAreaView } from "react-native-safe-area-context";
 const TYPES: { label: string; value: PropertyType }[] = [
   { label: "Apartment", value: "apartment" },
   { label: "House", value: "house" },
-  { label: "Land", value: "land" },
+  { label: "Studio", value: "studio" },
+  { label: "Villa", value: "villa" },
   { label: "Commercial", value: "commercial" },
 ];
 

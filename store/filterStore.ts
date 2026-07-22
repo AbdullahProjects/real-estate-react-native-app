@@ -1,6 +1,6 @@
 import { create } from "zustand";
 
-export type PropertyType = "apartment" | "house" | "land" | "commercial" | null;
+export type PropertyType = "apartment" | "house" | "villa" | "studio" | "commercial" | null;
 
 interface FilterStore {
   search: string;
